@@ -1,14 +1,30 @@
 <?php
 
 include __DIR__ . '/consumer-config.php';
+
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-$exchange = 'router';
-$queue = 'msgs';
+$exchange    = 'router';
+$queue       = 'msgs';
 $consumerTag = 'consumer';
 
-$connection = new AMQPStreamConnection(HOST, PORT, USER, PASS, VHOST);
-$channel = $connection->channel();
+$connection = new AMQPStreamConnection(
+    HOST,
+    PORT,
+    USER,
+    PASS,
+    VHOST,
+    false,
+    'AMQPLAIN',
+    null,
+    'en_US',
+    3.0,
+    3.0,
+    null,
+    true,
+    0
+);
+$channel    = $connection->channel();
 
 /*
     The following code is the same both in the consumer and the producer.
@@ -67,18 +83,21 @@ function process_message($message)
 $channel->basic_consume($queue, $consumerTag, false, false, false, false, 'process_message');
 
 /**
- * @param \PhpAmqpLib\Channel\AMQPChannel $channel
+ * @param \PhpAmqpLib\Channel\AMQPChannel           $channel
  * @param \PhpAmqpLib\Connection\AbstractConnection $connection
  */
-function shutdown($channel, $connection)
-{
-    $channel->close();
-    $connection->close();
-}
-
-register_shutdown_function('shutdown', $channel, $connection);
+//function shutdown($channel, $connection)
+//{
+//    $channel->close();
+//    $connection->close();
+//}
+//
+//register_shutdown_function('shutdown', $channel, $connection);
 
 // Loop as long as the channel has callbacks registered
 while (count($channel->callbacks)) {
-    $channel->wait(null,null, 120);
+    $channel->wait(null, null, 60);
+    $connection->close();
 }
+
+echo date('Y-m-d H:i:s') . ' consumer is stopped.';
