@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "php-amqplib/php-amqplib",
-            "version": "v2.7.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-amqplib/php-amqplib.git",
-                "reference": "dfd3694a86f1a7394d3693485259d4074a6ec79b"
+                "url": "https://github.com/parpalak/php-amqplib.git",
+                "reference": "4d3f510e00024fec133aac77020774f5ab0626c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/dfd3694a86f1a7394d3693485259d4074a6ec79b",
-                "reference": "dfd3694a86f1a7394d3693485259d4074a6ec79b",
+                "url": "https://api.github.com/repos/parpalak/php-amqplib/zipball/4d3f510e00024fec133aac77020774f5ab0626c7",
+                "reference": "4d3f510e00024fec133aac77020774f5ab0626c7",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,12 @@
                     "PhpAmqpLib\\": "PhpAmqpLib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "PhpAmqpLib\\Tests\\Functional\\": "tests/Functional",
+                    "PhpAmqpLib\\Tests\\Unit\\": "tests/Unit"
+                }
+            },
             "license": [
                 "LGPL-2.1-or-later"
             ],
@@ -75,7 +80,10 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2018-02-11T19:28:00+00:00"
+            "support": {
+                "source": "https://github.com/parpalak/php-amqplib/tree/master"
+            },
+            "time": "2018-04-03T12:38:45+00:00"
         }
     ],
     "packages-dev": [
