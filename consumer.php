@@ -86,13 +86,13 @@ $channel->basic_consume($queue, $consumerTag, false, false, false, false, 'proce
  * @param \PhpAmqpLib\Channel\AMQPChannel           $channel
  * @param \PhpAmqpLib\Connection\AbstractConnection $connection
  */
-//function shutdown($channel, $connection)
-//{
-//    $channel->close();
-//    $connection->close();
-//}
-//
-//register_shutdown_function('shutdown', $channel, $connection);
+function shutdown($channel, $connection)
+{
+    $channel->close();
+    $connection->close();
+}
+
+register_shutdown_function('shutdown', $channel, $connection);
 
 // Loop as long as the channel has callbacks registered
 while (count($channel->callbacks)) {
